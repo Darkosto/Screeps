@@ -1,6 +1,6 @@
 
 //Spawn New Creep
-//Game.spawns['Darkosto 1'].createCreep( [WORK, CARRY, MOVE], 'Builder1',     { role: 'builder' } );
+//Game.spawns['Darkosto1'].createCreep( [WORK, CARRY, MOVE], 'Builder1',     { role: 'builder' } );
 
 
 //Assign Creep Role
@@ -11,4 +11,7 @@
 
 
 //Safe Mode
-//Game.spawns['Darkosto 1'].room.controller.activateSafeMode();
+//Game.spawns['Darkosto1'].room.controller.activateSafeMode();
+
+//Room Move
+//Game.creeps['Builder6710'].moveTo(Game.rooms['W7N7'].controller);
