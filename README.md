@@ -1,1 +1,1 @@
-default
+Scripts for the game Screeps!
