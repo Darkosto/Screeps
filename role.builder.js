@@ -23,6 +23,13 @@ var roleBuilder = {
                 }
             }
         }
+        
+//        if(creep.find(constructionSites) == 0) {
+//           creep.memory.role = 'harvester';
+//           creep.say('Switching to Harvesting!');
+//        }
+
+        
 	    else {
 	        var sources = creep.room.find(FIND_SOURCES_ACTIVE);
             if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {

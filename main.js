@@ -15,7 +15,7 @@ module.exports.loop = function () {
         if(closestDamagedStructure) {
             tower.repair(closestDamagedStructure);
         }
-
+        
         var closestHostile = tower.pos.findClosestByRange(FIND_HOSTILE_CREEPS);
         if(closestHostile) {
             tower.attack(closestHostile);
@@ -33,23 +33,21 @@ module.exports.loop = function () {
 //Spawn New Harvester
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
 
-    if(harvesters.length < 3) {
+    if(harvesters.length < 5) {
         var newName = Game.spawns['Darkosto1'].createCreep([WORK,CARRY,MOVE], 'Harvester' + (Math.floor(Math.random() * 65534) + 1), {role: 'harvester'});
         console.log('Spawning new harvester: ' + newName);
     }
 //Spawn New Builders  
     var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
-
-
-
-    if(builders.length < 2 && harvesters.length > 2 && targets.length > 0) {
+    
+    if(builders.length < 3 && harvesters.length > 2 && ConstructionSite.length > 0) {
         var newName = Game.spawns['Darkosto1'].createCreep([WORK,CARRY,MOVE], 'Builder' + (Math.floor(Math.random() * 65534) + 1), {role: 'builder'});
         console.log('Spawning new builder: ' + newName);
     }
 //Spawn New Upgrader
     var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
 
-    if(upgraders.length < 3 && harvesters.length > 2) {
+    if(upgraders.length < 4 && harvesters.length > 2) {
         var newName = Game.spawns['Darkosto1'].createCreep([WORK,CARRY,MOVE], 'Upgrader' + (Math.floor(Math.random() * 65534) + 1), {role: 'upgrader'});
         console.log('Spawning new upgrader: ' + newName);
     } 
@@ -59,7 +57,7 @@ module.exports.loop = function () {
     if(repairer.length < 1 && harvesters.length > 2 && upgraders.length > 1 && builders.length > 1 ) {
         var newName = Game.spawns['Darkosto1'].createCreep([WORK,CARRY,MOVE], 'Repairer' + (Math.floor(Math.random() * 65534) + 1), {role: 'repairer'});
         console.log('Spawning new repairer: ' + newName);
-    } 
+    }
 
 
 
