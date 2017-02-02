@@ -1,8 +1,9 @@
 var roleHarvester = require('role.harvester');
 var roleUpgrader = require('role.upgrader');
 var roleBuilder = require('role.builder');
-//var roleRepairer = require('role.repairer');
-var roleTransit = require('role.transit');
+var roleRepairer = require('role.repairer');
+//var roleTransit = require('role.transit');
+//var roleFilling = require('role.filling');
 
 module.exports.loop = function () {
 
@@ -39,28 +40,26 @@ module.exports.loop = function () {
 //Spawn New Builders  
     var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
 
-    if(builders.length < 4) {
+
+
+    if(builders.length < 2 && harvesters.length > 2 && targets.length > 0) {
         var newName = Game.spawns['Darkosto1'].createCreep([WORK,CARRY,MOVE], 'Builder' + (Math.floor(Math.random() * 65534) + 1), {role: 'builder'});
         console.log('Spawning new builder: ' + newName);
     }
-    if(builders.length > 4 && harvesters.length > 2) {
-        memory.role = 'harvester';
-        console.log('Converting Builder to Harvester: ' + newName);
-    }        
 //Spawn New Upgrader
     var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
 
-    if(upgraders.length < 1 && harvesters.length > 2) {
+    if(upgraders.length < 3 && harvesters.length > 2) {
         var newName = Game.spawns['Darkosto1'].createCreep([WORK,CARRY,MOVE], 'Upgrader' + (Math.floor(Math.random() * 65534) + 1), {role: 'upgrader'});
         console.log('Spawning new upgrader: ' + newName);
     } 
 //Spawn New repairer 
-//    var repairer = _.filter(Game.creeps, (creep) => creep.memory.role == 'repairer');
-//
-//    if(repairer.length < 1 && harvesters.length > 2) {
-//        var newName = Game.spawns['Darkosto1'].createCreep([WORK,CARRY,MOVE], 'Repairer' + (Math.floor(Math.random() * 65534) + 1), {role: 'repairer'});
-//        console.log('Spawning new repairer: ' + newName);
-//    } 
+    var repairer = _.filter(Game.creeps, (creep) => creep.memory.role == 'repairer');
+
+    if(repairer.length < 1 && harvesters.length > 2 && upgraders.length > 1 && builders.length > 1 ) {
+        var newName = Game.spawns['Darkosto1'].createCreep([WORK,CARRY,MOVE], 'Repairer' + (Math.floor(Math.random() * 65534) + 1), {role: 'repairer'});
+        console.log('Spawning new repairer: ' + newName);
+    } 
 
 
 
@@ -75,12 +74,21 @@ module.exports.loop = function () {
         if(creep.memory.role == 'builder') {
             roleBuilder.run(creep);
         }
-//        if(creep.memory.role == 'repairer') {
-//            roleRepairer.run(creep);
-//        }
-        if(creep.memory.room == 'W8N7') {
-            roleTransit.run(creep);
+        if(creep.memory.role == 'repairer') {
+            roleRepairer.run(creep);
         }
+//        if(creep.memory.role == 'filling') {
+//            roleFilling.run(creep);
+//        }
+        
+//        if(creep.carry.energy == 50 && memory.role == 'filling') { 
+//        creep.say('Upgrading!');
+//        roleUpgrader.run(creep);
+//        }
+        
+//        if(creep.room.name !== 'W7N7') {
+//            roleTransit.run(creep);
+//        }
         
     }
 }
