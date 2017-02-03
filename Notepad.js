@@ -15,3 +15,9 @@
 
 //Room Move
 //Game.creeps['Builder6710'].moveTo(Game.rooms['W7N7'].controller);
+
+
+
+//        if(creep.memory.role 'harvester' == true) {
+//            creep.moveTo(35, 28);
+//

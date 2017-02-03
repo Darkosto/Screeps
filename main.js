@@ -40,7 +40,7 @@ module.exports.loop = function () {
 //Spawn New Builders  
     var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
     
-    if(builders.length < 3 && harvesters.length > 2 && ConstructionSite.length > 0) {
+    if(builders.length < 3 && harvesters.length > 2) {
         var newName = Game.spawns['Darkosto1'].createCreep([WORK,CARRY,MOVE], 'Builder' + (Math.floor(Math.random() * 65534) + 1), {role: 'builder'});
         console.log('Spawning new builder: ' + newName);
     }
