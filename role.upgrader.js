@@ -28,4 +28,8 @@ var roleUpgrader = {
 	}
 };
 
+// Use creep.carryCapacity for max capacity
+
+
+
 module.exports = roleUpgrader;

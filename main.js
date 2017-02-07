@@ -7,7 +7,7 @@ var roleRepairer = require('role.repairer');
 
 module.exports.loop = function () {
 
-    var tower = Game.getObjectById('c9efb527c2edc0c4e7b715aa');
+    var tower = Game.getObjectById('bd622beb134ede5');
     if(tower) {
         var closestDamagedStructure = tower.pos.findClosestByRange(FIND_STRUCTURES, {
             filter: (structure) => structure.hits < structure.hitsMax
@@ -33,17 +33,30 @@ module.exports.loop = function () {
 //Spawn New Harvester
     var harvesters = _.filter(Game.creeps, (creep) => creep.memory.role == 'harvester');
 
-    if(harvesters.length < 5) {
-        var newName = Game.spawns['Darkosto1'].createCreep([WORK,CARRY,MOVE], 'Harvester' + (Math.floor(Math.random() * 65534) + 1), {role: 'harvester'});
+    if(harvesters.length < 8) {
+        var newName = Game.spawns['Darkosto1'].createCreep([WORK,WORK,CARRY,MOVE,], 'Harvester' + (Math.floor(Math.random() * 65534) + 1), {role: 'harvester'});
         console.log('Spawning new harvester: ' + newName);
     }
 //Spawn New Builders  
-    var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
+
+
     
-    if(builders.length < 3 && harvesters.length > 2) {
+    var builders = _.filter(Game.creeps, (creep) => creep.memory.role == 'builder');
+    //var targets = creep.room.find(FIND_CONSTRUCTION_SITES);
+    
+    if(builders.length < 3 && harvesters.length > 2 && ConstructionSite.length > 0) {
         var newName = Game.spawns['Darkosto1'].createCreep([WORK,CARRY,MOVE], 'Builder' + (Math.floor(Math.random() * 65534) + 1), {role: 'builder'});
         console.log('Spawning new builder: ' + newName);
     }
+    
+    
+    
+    //console.log(FIND_SOURCES)
+    
+    
+    
+    
+    
 //Spawn New Upgrader
     var upgraders = _.filter(Game.creeps, (creep) => creep.memory.role == 'upgrader');
 
