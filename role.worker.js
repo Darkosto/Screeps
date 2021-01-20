@@ -23,6 +23,13 @@ var role_worker = {
 
 
 
+        if (creep.memory.working) {
+            var sources = creep.room.find(FIND_SOURCES_ACTIVE);
+            if (creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
+                creep.moveTo(sources[0]);
+
+            }
+        }
 
         if (creep.memory.working) {
             var targets = creep.room.find(FIND_MY_STRUCTURES, {
