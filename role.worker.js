@@ -2,7 +2,7 @@ var role_worker = {
 
     /** @param {Creep} creep **/
     run: function(creep) {
-
+        /*
         console.log(creep.store[RESOURCE_ENERGY], creep.store.getCapacity());
         if (creep.store[RESOURCE_ENERGY] < creep.store.getCapacity()) {
             var sources = creep.room.find(FIND_SOURCES_ACTIVE);
@@ -10,15 +10,30 @@ var role_worker = {
                 creep.moveTo(sources[0]);
 
             }
-        } else {
+        } 
+        */
+        if (creep.memory.working && creep.carry.energy == 0) {
+            creep.memory.working = false;
+            creep.say('collecting!');
+        }
+        if (!creep.memory.working && creep.carry.energy == creep.carryCapacity) {
+            creep.memory.working = true;
+            creep.say('energizing!');
+        }
+
+
+
+
+        if (creep.memory.working) {
             var targets = creep.room.find(FIND_MY_STRUCTURES, {
                 filter: (structure) => {
-                    return (structure.structureType == STRUCTURE_CONTROLLER) && structure.progress  < structure.progressTotal;
+                    return (structure.structureType == STRUCTURE_CONTROLLER) && structure.progress < structure.progressTotal;
                     //structure.structureType == STRUCTURE_EXTENSION
                     //structure.structureType == STRUCTURE_CONTAINER ||
                     //structure.structureType == STRUCTURE_SPAWN ||
                     //structure.structureType == STRUCTURE_TOWER
                 }
+
             });
             console.log(targets)
             if (targets.length > 0) {
