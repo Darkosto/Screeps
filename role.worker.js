@@ -12,11 +12,11 @@ var role_worker = {
             }
         } 
         */
-        if (creep.memory.working && creep.carry.energy == 0) {
+        if (creep.memory.working && creep.store[RESOURCE_ENERGY] == 0) {
             creep.memory.working = false;
             creep.say('collecting!');
         }
-        if (!creep.memory.working && creep.carry.energy == creep.carryCapacity) {
+        if (!creep.memory.working && creep.store[RESOURCE_ENERGY], creep.store.getCapacity()) {
             creep.memory.working = true;
             creep.say('energizing!');
         }
