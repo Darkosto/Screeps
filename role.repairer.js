@@ -1,35 +1,34 @@
-var roleRepairer = {
-  
-    /** @param {Creep} creep **/
-    run: function(creep) {
+  var role_repairer = {
 
-        if(creep.memory.repairing && creep.carry.energy == 0) {
-            creep.memory.repairing = false;
-        }
-        if(!creep.memory.repairing && creep.carry.energy == creep.carryCapacity) {
-            creep.memory.repairing = true;
-        }
+      /** @param {Creep} creep **/
+      run: function(creep) {
 
-
-
-    var repairTargets = creep.pos.findInRange(FIND_STRUCTURES, 1, {
-        filter: function(object) {
-            return object.hits < object.hitsMax
-                && object.hitsMax - object.hits > REPAIR_POWER;
-        }
-    });
-    repairTargets.sort(function (a,b) {return (a.hits - b.hits)});
-    if (repairTargets.length > 0)
-        creep.repair(repairTargets[0]);
+          //Repair
+          // if creep has no energy, go to the energy source and harvest some
+          if (creep.store[RESOURCE_ENERGY] === 0) {
+              // make an easy reference to the energy source
+              var source = Game.getObjectById('26f20772347f879');
+              // move my creep to the energy source and harvest energy
+              creep.moveTo(source);
+              creep.harvest(source);
+              creep.say('collecting!');
+          } else {
 
 
+              const targets = creep.room.find(FIND_STRUCTURES, {
+                  filter: object => object.hits < object.hitsMax
+              });
 
-         else {
-            var sources = creep.room.find(FIND_SOURCES_ACTIVE);
-            if(creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[0]);
-            }
-        }
-    }
-}; 
-module.exports = roleRepairer;
+              targets.sort((a, b) => a.hits - b.hits);
+
+              if (targets.length > 0) {
+                  if (creep.repair(targets[0]) == ERR_NOT_IN_RANGE) {
+                      creep.moveTo(targets[0]);
+                      creep.say('repairing!');
+                  }
+              }
+          }
+      }
+  };
+
+  module.exports = role_repairer;
