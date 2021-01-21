@@ -1,34 +1,47 @@
   var role_repairer = {
 
-      /** @param {Creep} creep **/
-      run: function(creep) {
+          /** @param {Creep} creep **/
+          run: function(creep) {
 
-          //Repair
-          // if creep has no energy, go to the energy source and harvest some
-          if (creep.store[RESOURCE_ENERGY] === 0) {
-              // make an easy reference to the energy source
-              var source = Game.getObjectById('26f20772347f879');
-              // move my creep to the energy source and harvest energy
-              creep.moveTo(source);
-              creep.harvest(source);
-              creep.say('collecting!');
-          } else {
+              //Repair
 
-
-              const targets = creep.room.find(FIND_STRUCTURES, {
-                  filter: object => object.hits < object.hitsMax
-              });
-
-              targets.sort((a, b) => a.hits - b.hits);
-
-              if (targets.length > 0) {
-                  if (creep.repair(targets[0]) == ERR_NOT_IN_RANGE) {
-                      creep.moveTo(targets[0]);
-                      creep.say('repairing!');
-                  }
+              console.log(creep.store[RESOURCE_ENERGY], creep.store.getCapacity());
+              if (creep.memory.repairing && creep.store[RESOURCE_ENERGY] == 0) {
+                  creep.memory.repairing = false;
+                  creep.say('collecting!');
               }
-          }
-      }
-  };
 
-  module.exports = role_repairer;
+              if (!creep.memory.repairing && creep.store[RESOURCE_ENERGY] == 50) {
+                  creep.memory.repairing = true;
+                  creep.say('repairing!');
+              }
+
+
+
+              if (creep.memory.repairing) {
+
+                  const targets = creep.room.find(FIND_MY_STRUCTURES, {
+                      filter: object => object.hits < object.hitsMax
+                  });
+
+                  targets.sort((a, b) => a.hits - b.hits);
+
+                  if (targets.length > 0) {
+                      if (creep.repair(targets[0]) == ERR_NOT_IN_RANGE) {
+                          creep.moveTo(targets[0]);
+                          creep.say('repairing!');
+                          console.log(targets)
+                      }
+                  }
+
+              } else {
+                  var sources = creep.room.find(FIND_SOURCES_ACTIVE);
+                  if (creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
+                      creep.moveTo(sources[0]);
+                  }
+
+              }
+            }
+          };
+
+          module.exports = role_repairer;

@@ -20,7 +20,7 @@ var role_worker = {
 
         if (!creep.memory.working && creep.store[RESOURCE_ENERGY] == 50) {
             creep.memory.working = true;
-            creep.say('test!');
+            creep.say('Energizing!');
         }
 
 
@@ -45,7 +45,7 @@ var role_worker = {
         } else {
             var sources = creep.room.find(FIND_SOURCES_ACTIVE);
             if (creep.harvest(sources[0]) == ERR_NOT_IN_RANGE) {
-                creep.moveTo(sources[0]);
+                creep.moveTo(sources[0], {visualizePathStyle: {stroke: '#ffffff'}});
             }
         }
     }

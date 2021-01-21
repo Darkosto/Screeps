@@ -24,10 +24,10 @@ var role_constructor = {
             }
         }
         
-//        if(creep.find(constructionSites) == 0) {
-//           creep.memory.role = 'harvester';
-//           creep.say('Switching to Harvesting!');
-//        }
+        if(creep.room.find(FIND_MY_CONSTRUCTION_SITES) == 0) {
+           creep.memory.role = 'worker';
+           creep.say('Switching to Working!');
+        }
 
         
         else {
