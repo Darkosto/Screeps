@@ -1,34 +1,31 @@
 // Creep to move into next area and capture
 
 var role_scout = {
-
-    run: function(creep) {
-
+  run: function (creep) {
     var home = Game.room(W8N3);
     var away = Game.room(W7N3);
-    
+
     //if (creep.)
-            creep.say('Testing');
-            //console.log('hi!')
-            
-            
-            creep.moveTo(Game.flags.Room2);
+    creep.say("Testing");
+    //console.log('hi!')
 
-            creep.claimController('a2db077296e87b8');
-            
-            //if (creep.room)
+    creep.moveTo(Game.flags.Room2);
 
-/*
+    creep.claimController("a2db077296e87b8");
+
+    //if (creep.room)
+
+    /*
 a2db077296e87b8
 
 
 
 
 */
-        }
-    };
+  },
+};
 module.exports = role_scout;
-        /*
+/*
             if(creep.room.name == 'W7N7');
         //    creep.memory.role = 'harvester'
             creep.say('Switching Jobs');
@@ -64,4 +61,3 @@ module.exports = role_scout;
    return C.OK;
  }
 */
-
